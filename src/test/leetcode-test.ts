@@ -28,7 +28,11 @@ async function test() {
 
     while (hasMoreData)
     {
-        const [submissions, currentHasMoreData] = await leetcode.submissions(resultsOnEachChunk, offset, true);
+        const [submissions, currentHasMoreData] = await leetcode.submissions({
+            limit: resultsOnEachChunk,
+            offset: offset,
+            onlyAccepted: true,
+        });
 
         offset += 10;
         hasMoreData = currentHasMoreData;
@@ -36,7 +40,12 @@ async function test() {
         console.log("****", offset, "****");
     }
 
-    console.log(await leetcode.submissions(10, 0, true, "two-sum-ii-input-array-is-sorted"));
+    console.log(await leetcode.submissions({
+        limit: 10,
+        offset: 0,
+        onlyAccepted: true,
+        slug: "two-sum-ii-input-array-is-sorted"
+    }));
 }
 
 test();

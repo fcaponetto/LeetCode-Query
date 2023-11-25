@@ -146,7 +146,17 @@ export class LeetCode extends EventEmitter {
      * const submissions = await leetcode.submissions({ limit: 100, offset: 0 });
      * ```
      */
-    public async submissions(limit: number, offset = 0, onlyAccepted= false, slug?: string): Promise<[Submission[], boolean]> {
+    public async submissions({
+         limit,
+         offset = 0,
+         onlyAccepted = false,
+         slug,
+     }: {
+        limit: number;
+        offset?: number;
+        onlyAccepted?: boolean;
+        slug?: string;
+    }): Promise<[Submission[], boolean]> {
         await this.initialized;
 
         const submissions: Submission[] = [];

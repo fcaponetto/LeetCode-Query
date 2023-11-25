@@ -129,9 +129,15 @@ export class LeetCode extends EventEmitter {
     }
 
     /**
-     * Get submissions of the credential user. Need to be authenticated.
+     * Get all the submissions of the user. Need to be authenticated.
      *
-     * @returns
+     * @param limit number of results for each request. It is required.
+     * @param offset starting point for the request. It starts from 0 by default
+     * @param slug name of the problem. If empty, all submitted problems are retrieved.
+     * @param onlyAccepted if true, it filters out not accepted submissions.
+     *
+     * @returns [submissions, hasMoreData]
+     * list of submissions (if any) a boolean that indicates if more data are available
      *
      * ```javascript
      * const credential = new Credential();
@@ -140,28 +146,35 @@ export class LeetCode extends EventEmitter {
      * const submissions = await leetcode.submissions({ limit: 100, offset: 0 });
      * ```
      */
-    public async submissions({
-        limit = 20,
-        offset = 0,
-        slug,
-    }: { limit?: number; offset?: number; slug?: string } = {}): Promise<Submission[]> {
+    public async submissions(limit: number, offset = 0, onlyAccepted= false, slug?: string): Promise<[Submission[], boolean]> {
         await this.initialized;
 
         const submissions: Submission[] = [];
         const set = new Set<number>();
+        let hasMoreData  = false;
 
         let cursor = offset;
-        while (submissions.length < limit) {
+        while (submissions.length < limit)
+        {
             const { data } = await this.graphql({
                 variables: {
                     offset: cursor,
                     limit: limit - submissions.length > 20 ? 20 : limit - submissions.length,
-                    slug,
+                    slug: slug,
                 },
                 query: SUBMISSIONS,
             });
 
-            for (const submission of data.submissionList.submissions) {
+            for (const submission of data.submissionList.submissions)
+            {
+                // Accepted = 10
+                // Wrong answer = 11
+                // Runtime error = 15
+                if(onlyAccepted && submission.status != 10)
+                {
+                    continue;
+                }
+
                 submission.id = parseInt(submission.id, 10);
                 submission.timestamp = parseInt(submission.timestamp, 10) * 1000;
                 submission.isPending = submission.isPending !== "Not Pending";
@@ -176,14 +189,16 @@ export class LeetCode extends EventEmitter {
                 submissions.push(submission);
             }
 
-            if (!data.submissionList.hasNext) {
+            hasMoreData = data.submissionList.hasNext;
+            if (!data.submissionList.hasNext)
+            {
                 break;
             }
 
             cursor += 20;
         }
 
-        return submissions;
+        return [submissions, hasMoreData];
     }
 
     /**

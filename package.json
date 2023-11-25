@@ -15,7 +15,8 @@
         "docs": "typedoc ./src/ --name \"LeetCode Query\" --customCss \"./docs.css\"",
         "format": "prettier --write \"src/**/*.ts\"",
         "lint": "eslint .",
-        "test": "jest --coverage"
+        "test": "jest --coverage",
+        "ts-node": "ts-node src/test/leetcode-test.ts"
     },
     "keywords": [
         "leetcode",

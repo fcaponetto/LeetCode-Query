@@ -1,5 +1,5 @@
 export default `
-query {
+query globalData {
     userStatus {
       userId
       username

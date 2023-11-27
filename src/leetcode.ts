@@ -133,8 +133,8 @@ export class LeetCode extends EventEmitter {
      *
      * @param limit number of results for each request. It is required.
      * @param offset starting point for the request. It starts from 0 by default
-     * @param slug name of the problem. If empty, all submitted problems are retrieved.
      * @param onlyAccepted if true, it filters out not accepted submissions.
+     * @param slug name of the problem. If empty, all submitted problems are retrieved.
      *
      * @returns [submissions, hasMoreData]
      * list of submissions (if any) a boolean that indicates if more data are available

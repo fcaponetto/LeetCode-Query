@@ -140,23 +140,13 @@ export type ProblemDifficulty = "Easy" | "Medium" | "Hard";
 export interface Problem {
     questionId: string;
     questionFrontendId: string;
-    boundTopicId: unknown;
     title: string;
     titleSlug: string;
     content: string;
-    translatedTitle: string | null;
-    translatedContent: string | null;
     isPaidOnly: boolean;
     difficulty: ProblemDifficulty;
-    likes: number;
-    dislikes: number;
-    isLiked: boolean | null;
-    similarQuestions: string;
-    exampleTestcases: string;
-    contributors: unknown[];
     topicTags: TopicTag[];
     companyTagStats: unknown;
-    codeSnippets: CodeSnippet[];
     stats: string;
     hints: string[];
     solution: OfficialSolution;
@@ -169,10 +159,8 @@ export interface Problem {
     enableRunCode: boolean;
     enableTestMode: boolean;
     enableDebugger: boolean;
-    envInfo: string;
     libraryUrl: string | null;
     adminUrl: string | null;
-    challengeQuestion: ChallengeQuestion;
     /** null if not logged in */
     note: string | null;
 }

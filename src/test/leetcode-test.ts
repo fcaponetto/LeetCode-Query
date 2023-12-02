@@ -46,6 +46,9 @@ async function test() {
         onlyAccepted: true,
         slug: "flatten-nested-list-iterator"
     }));
+
+    const problem = await leetcode.problem("flatten-nested-list-iterator");
+    console.log(problem);
 }
 
 test();

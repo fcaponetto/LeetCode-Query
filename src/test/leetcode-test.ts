@@ -44,7 +44,7 @@ async function test() {
         limit: 10,
         offset: 0,
         onlyAccepted: true,
-        slug: "two-sum-ii-input-array-is-sorted"
+        slug: "flatten-nested-list-iterator"
     }));
 }
 

@@ -247,28 +247,17 @@ export interface Whoami {
 }
 
 export interface SubmissionDetail {
-    id: number;
-    problem_id: number;
     runtime: number;
+    runtime_display: number;
     runtime_distribution: [number, number][];
     runtime_percentile: number;
     memory: number;
+    memory_display: number;
     memory_distribution: [number, number][];
     memory_percentile: number;
     code: string;
-    details: {
-        status_code: number;
-        runtime: string;
-        memory: string;
-        total_correct: string;
-        total_testcases: string;
-        compare_result: string;
-        input_formatted: string;
-        input: string;
-        expected_output: string;
-        code_output: string;
-        last_testcase: string;
-    };
+    timestamp: number;
+    status_code: number;
 }
 
 export interface ProblemList {

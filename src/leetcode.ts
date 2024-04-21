@@ -9,6 +9,7 @@ import PROBLEM from "./graphql/problem";
 import PROBLEMS from "./graphql/problems";
 import PROFILE from "./graphql/profile";
 import RECENT_SUBMISSIONS from "./graphql/recent-submissions";
+import SUBMISSION from "./graphql/submission";
 import SUBMISSIONS from "./graphql/submissions";
 import WHOAMI from "./graphql/whoami";
 import type {
@@ -216,58 +217,38 @@ export class LeetCode extends EventEmitter {
     public async submission(id: number): Promise<SubmissionDetail> {
         await this.initialized;
 
-        try {
-            await this.limiter.lock();
 
-            const res = await fetch(`${BASE_URL}/submissions/detail/${id}/`, {
-                headers: {
-                    origin: BASE_URL,
-                    referer: BASE_URL,
-                    cookie: `csrftoken=${this.credential.csrf || ""}; LEETCODE_SESSION=${
-                        this.credential.session || ""
-                    };`,
-                    "user-agent": USER_AGENT,
-                },
-            });
-            const raw = await res.text();
-            const data = raw.match(/var pageData = ({[^]+?});/)?.[1];
-            const json = new Function("return " + data)();
-            const result = {
-                id: parseInt(json.submissionId),
-                problem_id: parseInt(json.questionId),
-                runtime: parseInt(json.runtime),
-                runtime_distribution: json.runtimeDistributionFormatted
-                    ? (JSON.parse(json.runtimeDistributionFormatted).distribution.map(
-                          (item: [string, number]) => [+item[0], item[1]],
-                      ) as [number, number][])
-                    : [],
-                runtime_percentile: 0,
-                memory: parseInt(json.memory),
-                memory_distribution: json.memoryDistributionFormatted
-                    ? (JSON.parse(json.memoryDistributionFormatted).distribution.map(
-                          (item: [string, number]) => [+item[0], item[1]],
-                      ) as [number, number][])
-                    : [],
-                memory_percentile: 0,
-                code: json.submissionCode,
-                details: json.submissionData,
-            };
+        const {data} = await this.graphql({
+            variables: {submissionId: id},
+            query: SUBMISSION,
+        });
 
-            result.runtime_percentile = result.runtime_distribution.reduce(
-                (acc, [usage, p]) => acc + (usage >= result.runtime ? p : 0),
-                0,
-            );
-            result.memory_percentile = result.memory_distribution.reduce(
-                (acc, [usage, p]) => acc + (usage >= result.memory / 1000 ? p : 0),
-                0,
-            );
+        const submission = data.submissionDetails;
+        submission.runtime = parseInt(submission.runtime);
+        submission.runtime_distribution = submission.runtimeDistribution
+            ? (JSON.parse(submission.runtimeDistribution).distribution.map(
+                (item: [string, number]) => [+item[0], item[1]],
+            ) as [number, number][])
+            : [];
+        submission.runtime_percentile = 0;
+        submission.memory = parseInt(submission.memory);
+        submission.memory_distribution = submission.memoryDistribution
+            ? (JSON.parse(submission.memoryDistribution).distribution.map(
+                (item: [string, number]) => [+item[0], item[1]],
+            ) as [number, number][])
+            : [];
+        submission.memory_percentile = 0;
 
-            this.limiter.unlock();
-            return result;
-        } catch (err) {
-            this.limiter.unlock();
-            throw err;
-        }
+        submission.runtime_percentile = submission.runtime_distribution.reduce(
+            (acc: any, [usage, p]: any) => acc + (usage >= submission.runtime ? p : 0),
+            0,
+        );
+        submission.memory_percentile = submission.memory_distribution.reduce(
+            (acc: any, [usage, p]: any) => acc + (usage >= submission.memory / 1000 ? p : 0),
+            0,
+        );
+
+        return submission;
     }
 
     /**

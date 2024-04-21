@@ -1,10 +1,8 @@
-import LeetCode from "../leetcode";
 import Credential from "../credential";
+import LeetCode from "../leetcode";
 
 async function test() {
-
-    if(process.argv.length < 2)
-    {
+    if (process.argv.length < 2) {
         console.error("Error: Missing session ID.");
         process.exit(1);
     }
@@ -16,8 +14,7 @@ async function test() {
 
     const user = await leetcode.whoami();
 
-    if (!user.isSignedIn)
-    {
+    if (!user.isSignedIn) {
         console.log("No user found! Is your session expired?");
         process.exit(1);
     }
@@ -26,8 +23,8 @@ async function test() {
     let hasMoreData = true;
     let offset = 0;
 
-    while (hasMoreData)
-    {
+    /** Get all submissions **/
+    while (hasMoreData) {
         const [submissions, currentHasMoreData] = await leetcode.submissions({
             limit: resultsOnEachChunk,
             offset: offset,
@@ -40,12 +37,15 @@ async function test() {
         console.log("****", offset, "****");
     }
 
-    console.log(await leetcode.submissions({
-        limit: 10,
-        offset: 0,
-        onlyAccepted: true,
-        slug: "flatten-nested-list-iterator"
-    }));
+    /** Get a specific one **/
+    console.log(
+        await leetcode.submissions({
+            limit: 10,
+            offset: 0,
+            onlyAccepted: true,
+            slug: "flatten-nested-list-iterator",
+        }),
+    );
 
     const problem = await leetcode.problem("flatten-nested-list-iterator");
     console.log(problem);

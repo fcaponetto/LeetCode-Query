@@ -147,11 +147,11 @@ export class LeetCode extends EventEmitter {
      * ```
      */
     public async submissions({
-         limit,
-         offset = 0,
-         onlyAccepted = false,
-         slug,
-     }: {
+        limit,
+        offset = 0,
+        onlyAccepted = false,
+        slug,
+    }: {
         limit: number;
         offset?: number;
         onlyAccepted?: boolean;
@@ -161,11 +161,10 @@ export class LeetCode extends EventEmitter {
 
         const submissions: Submission[] = [];
         const set = new Set<number>();
-        let hasMoreData  = false;
+        let hasMoreData = false;
 
         let cursor = offset;
-        while (submissions.length < limit)
-        {
+        while (submissions.length < limit) {
             const { data } = await this.graphql({
                 variables: {
                     offset: cursor,
@@ -175,13 +174,11 @@ export class LeetCode extends EventEmitter {
                 query: SUBMISSIONS,
             });
 
-            for (const submission of data.submissionList.submissions)
-            {
+            for (const submission of data.submissionList.submissions) {
                 // Accepted = 10
                 // Wrong answer = 11
                 // Runtime error = 15
-                if(onlyAccepted && submission.status != 10)
-                {
+                if (onlyAccepted && submission.status != 10) {
                     continue;
                 }
 
@@ -200,8 +197,7 @@ export class LeetCode extends EventEmitter {
             }
 
             hasMoreData = data.submissionList.hasNext;
-            if (!data.submissionList.hasNext)
-            {
+            if (!data.submissionList.hasNext) {
                 break;
             }
 

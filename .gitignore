@@ -82,3 +82,5 @@ lib/
 docs/
 
 **/.DS_Store
+
+.idea

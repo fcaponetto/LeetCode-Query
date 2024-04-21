@@ -396,6 +396,14 @@ export class LeetCode extends EventEmitter {
                 }
             }
 
+            //////////////////////////////////////
+            // Uncomment the following in case of query issues
+            /////////////////////////////////////
+
+            // console.log("Sending query with:", JSON.stringify(query));
+            // console.log("Received headers:", res.headers);
+            // console.log("Response status:", res.status);
+
             this.limiter.unlock();
             return res.json();
         } catch (err) {

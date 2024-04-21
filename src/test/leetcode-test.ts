@@ -38,15 +38,19 @@ async function test() {
     }
 
     /** Get a specific one **/
-    console.log(
-        await leetcode.submissions({
+    const singleSubmission = await leetcode.submissions({
             limit: 10,
             offset: 0,
             onlyAccepted: true,
             slug: "flatten-nested-list-iterator",
-        }),
-    );
+        });
+    console.log(singleSubmission);
 
+    /** Get a specific submission **/
+    const submission = await leetcode.submission(1097389236);
+    console.log(submission.code);
+
+    /** Get a specific problem **/
     const problem = await leetcode.problem("flatten-nested-list-iterator");
     console.log(problem);
 }

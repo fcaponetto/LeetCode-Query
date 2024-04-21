@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "fa48ee5a-8a4a-4f33-8df9-be245fc87345",
+		"name": "LeetCode",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3710349"
+	},
+	"item": [
+		{
+			"name": "submissionList",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "LEETCODE_SESSION=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfYXV0aF91c2VyX2lkIjoiNjA2MzA0OSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImFsbGF1dGguYWNjb3VudC5hdXRoX2JhY2tlbmRzLkF1dGhlbnRpY2F0aW9uQmFja2VuZCIsIl9hdXRoX3VzZXJfaGFzaCI6IjQyZDZkODFiMzVhZjUzZDVkOTQ4NTIyZTQwMGNjMGY0ZTVlMmZjYjU3NzNkY2FlNjUwZTM0ZTI4MjRkOWU5MjkiLCJpZCI6NjA2MzA0OSwiZW1haWwiOiJmZXJuYW5kby4zMTQxNTkyNjUzNTlAZ21haWwuY29tIiwidXNlcm5hbWUiOiJOZXZlckNyeSIsInVzZXJfc2x1ZyI6Ik5ldmVyQ3J5IiwiYXZhdGFyIjoiaHR0cHM6Ly9hc3NldHMubGVldGNvZGUuY29tL3VzZXJzL2RlZmF1bHRfYXZhdGFyLmpwZyIsInJlZnJlc2hlZF9hdCI6MTcxMzYzMjkxMiwiaXAiOiI4MS43Ny4xMTkuOTEiLCJpZGVudGl0eSI6ImFiODZhNWZkMDgzZGIwNTZmZmFjM2UyOThhZjAwZjY3Iiwic2Vzc2lvbl9pZCI6NTk2MjY1MTgsIl9zZXNzaW9uX2V4cGlyeSI6MTIwOTYwMH0.zffIJsXDs3864uY7GZrREKFJByPYZt7D1eRGtlq6xGA"
+					},
+					{
+						"key": "x-csrftoken",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query submissionList($offset: Int!, $limit: Int!, $questionSlug: String) {\n  submissionList(\n    offset: $offset\n    limit: $limit\n    questionSlug: $questionSlug\n  ) {\n    hasNext\n    submissions {\n      id\n      title\n      titleSlug\n      status\n      statusDisplay\n      lang\n      langName\n      runtime\n      timestamp\n      url\n      isPending\n      memory\n      hasNotes\n      notes\n    }\n  }\n}",
+						"variables": "{\"offset\": 0, \"limit\": 20, \"questionSlug\": \"two-sum-ii-input-array-is-sorted\"}"
+					}
+				},
+				"url": {
+					"raw": "https://leetcode.com/graphql/",
+					"protocol": "https",
+					"host": [
+						"leetcode",
+						"com"
+					],
+					"path": [
+						"graphql",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "submissionDetails",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "LEETCODE_SESSION=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJfYXV0aF91c2VyX2lkIjoiNjA2MzA0OSIsIl9hdXRoX3VzZXJfYmFja2VuZCI6ImFsbGF1dGguYWNjb3VudC5hdXRoX2JhY2tlbmRzLkF1dGhlbnRpY2F0aW9uQmFja2VuZCIsIl9hdXRoX3VzZXJfaGFzaCI6IjQyZDZkODFiMzVhZjUzZDVkOTQ4NTIyZTQwMGNjMGY0ZTVlMmZjYjU3NzNkY2FlNjUwZTM0ZTI4MjRkOWU5MjkiLCJpZCI6NjA2MzA0OSwiZW1haWwiOiJmZXJuYW5kby4zMTQxNTkyNjUzNTlAZ21haWwuY29tIiwidXNlcm5hbWUiOiJOZXZlckNyeSIsInVzZXJfc2x1ZyI6Ik5ldmVyQ3J5IiwiYXZhdGFyIjoiaHR0cHM6Ly9hc3NldHMubGVldGNvZGUuY29tL3VzZXJzL2RlZmF1bHRfYXZhdGFyLmpwZyIsInJlZnJlc2hlZF9hdCI6MTcxMzYzMjkxMiwiaXAiOiI4MS43Ny4xMTkuOTEiLCJpZGVudGl0eSI6ImFiODZhNWZkMDgzZGIwNTZmZmFjM2UyOThhZjAwZjY3Iiwic2Vzc2lvbl9pZCI6NTk2MjY1MTgsIl9zZXNzaW9uX2V4cGlyeSI6MTIwOTYwMH0.zffIJsXDs3864uY7GZrREKFJByPYZt7D1eRGtlq6xGA"
+					},
+					{
+						"key": "x-csrftoken",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query submissionDetails($submissionId: Int!) {\n  submissionDetails(submissionId: $submissionId) {\n    runtime\n    runtimePercentile\n    runtimeDistribution\n    memory\n    memoryDisplay\n    memoryPercentile\n    memoryDistribution\n    code\n    timestamp\n    statusCode\n    user {\n      username\n      profile {\n        realName\n        userAvatar\n      }\n    }\n    lang {\n      name\n      verboseName\n    }\n    question {\n      questionId\n    }\n    notes\n    topicTags {\n      tagId\n      slug\n      name\n    }\n    runtimeError\n    compileError\n    lastTestcase\n  }\n}",
+						"variables": "{\"submissionId\": 1097389236}"
+					}
+				},
+				"url": {
+					"raw": "https://leetcode.com/graphql/",
+					"protocol": "https",
+					"host": [
+						"leetcode",
+						"com"
+					],
+					"path": [
+						"graphql",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "problemsetQuestionList",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "x-csrftoken",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query problemsetQuestionList($categorySlug: String, $limit: Int, $skip: Int, $filters: QuestionListFilterInput) {\n  problemsetQuestionList: questionList(\n    categorySlug: $categorySlug\n    limit: $limit\n    skip: $skip\n    filters: $filters\n  ) {\n    total: totalNum\n    questions: data {\n      acRate\n      difficulty\n      freqBar\n      frontendQuestionId: questionFrontendId\n      isFavor\n      paidOnly: isPaidOnly\n      status\n      title\n      titleSlug\n      topicTags {\n        name\n        id\n        slug\n      }\n      hasSolution\n      hasVideoSolution\n    }\n  }\n}",
+						"variables": "{\"categorySlug\": \"clone-graph\", \"skip\": 0, \"limit\": 50, \"filters\": {}}"
+					}
+				},
+				"url": {
+					"raw": "https://leetcode.com/graphql/",
+					"protocol": "https",
+					"host": [
+						"leetcode",
+						"com"
+					],
+					"path": [
+						"graphql",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "questionContent",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Cookie",
+						"value": "",
+						"disabled": true
+					},
+					{
+						"key": "x-csrftoken",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query ($titleSlug: String!) {\n    question(titleSlug: $titleSlug) {\n        questionId\n        questionFrontendId\n        title\n        titleSlug\n        content\n        isPaidOnly\n        difficulty\n        exampleTestcases\n        topicTags {\n            name\n            slug\n        }\n        companyTagStats\n        stats\n        hints\n        solution {\n            id\n            canSeeDetail\n            paidOnly\n            hasVideoSolution\n            paidOnlyVideo\n        }\n        status\n        sampleTestCase\n        metaData\n        judgerAvailable\n        judgeType\n        mysqlSchemas\n        enableRunCode\n        enableTestMode\n        enableDebugger\n        libraryUrl\n        adminUrl\n        note\n    }\n}",
+						"variables": "{\"titleSlug\": \"flatten-nested-list-iterator\"}"
+					}
+				},
+				"url": {
+					"raw": "https://leetcode.com/graphql/",
+					"protocol": "https",
+					"host": [
+						"leetcode",
+						"com"
+					],
+					"path": [
+						"graphql",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

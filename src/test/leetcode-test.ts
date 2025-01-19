@@ -2,7 +2,7 @@ import Credential from "../credential";
 import LeetCode from "../leetcode";
 
 async function test() {
-    if (process.argv.length < 2) {
+    if (process.argv.length != 3) {
         console.error("Error: Missing session ID.");
         process.exit(1);
     }
@@ -39,11 +39,11 @@ async function test() {
 
     /** Get a specific one **/
     const singleSubmission = await leetcode.submissions({
-            limit: 10,
-            offset: 0,
-            onlyAccepted: true,
-            slug: "flatten-nested-list-iterator",
-        });
+        limit: 10,
+        offset: 0,
+        onlyAccepted: true,
+        slug: "flatten-nested-list-iterator",
+    });
     console.log(singleSubmission);
 
     /** Get a specific submission **/

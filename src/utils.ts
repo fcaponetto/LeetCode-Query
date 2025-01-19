@@ -1,4 +1,9 @@
-export function parse_cookie(cookie: string): Record<string, string> {
+export function parse_cookie(cookie: string | null): Record<string, string> {
+    if (!cookie) {
+        // Handle null or empty input gracefully
+        console.error("Cookie is null!");
+    }
+
     return cookie
         .split(";")
         .map((x) => x.trim().split("="))

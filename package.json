@@ -16,7 +16,7 @@
         "format": "prettier --write \"src/**/*.ts\"",
         "lint": "eslint .",
         "test": "jest --coverage",
-        "ts-node": "ts-node src/test/leetcode-test.ts"
+        "ts-node": "ts-node src/test/leetcode-test.ts {session cooking wihout starting with LEETCODE_COOKIE, directly past the cookie}"
     },
     "keywords": [
         "leetcode",

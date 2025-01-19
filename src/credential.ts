@@ -1,10 +1,10 @@
 import fetch from "node-fetch";
-import { BASE_URL, USER_AGENT } from "./constants";
+import { BASE_URL_COOKIE, USER_AGENT } from "./constants";
 import type { ICredential } from "./types";
 import { parse_cookie } from "./utils";
 
 async function get_csrf() {
-    const cookies_raw = (await fetch(BASE_URL, {
+    const cookies_raw = (await fetch(BASE_URL_COOKIE, {
         headers: {
             "user-agent": USER_AGENT,
         },
